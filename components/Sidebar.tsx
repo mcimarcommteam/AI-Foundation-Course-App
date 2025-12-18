@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { BookOpen, MessageCircle, CheckCircle2, Circle, ShieldCheck, LogOut, Globe, Mail, Phone, Trophy, MessageSquarePlus, X } from 'lucide-react';
+import { BookOpen, MessageCircle, CheckCircle2, Circle, ShieldCheck, LogOut, Globe, Mail, Phone, Trophy, MessageSquarePlus, X, Share2, Copy } from 'lucide-react';
 import { COURSE_CONTENT } from '../constants';
 import { MCILogo } from './MCILogo';
 import { ContentType } from '../types';
@@ -21,6 +21,7 @@ interface SidebarProps {
 }
 
 const ADMIN_EMAIL = 'mcimarcommteam@gmail.com';
+const OFFICIAL_PRODUCTION_URL = 'https://ai-foundation-course.web.app';
 
 export const Sidebar: React.FC<SidebarProps> = ({ 
   currentModuleId, 
@@ -37,6 +38,32 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const isAdmin = userEmail === ADMIN_EMAIL;
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const [showCopied, setShowCopied] = useState(false);
+
+  const handleShare = async () => {
+    const currentUrl = window.location.origin;
+    const shareUrl = currentUrl.includes('web.app') || currentUrl.includes('localhost') || currentUrl.includes('idx.google.com') 
+        ? OFFICIAL_PRODUCTION_URL 
+        : currentUrl;
+
+    const shareData = {
+      title: 'MCI | AI Foundations Certification',
+      text: 'Join me in mastering Generative AI at Management Career Institute!',
+      url: shareUrl
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(shareData.url);
+        setShowCopied(true);
+        setTimeout(() => setShowCopied(false), 2000);
+      }
+    } catch (err) {
+      console.error('Share failed', err);
+    }
+  };
 
   return (
     <>
@@ -64,7 +91,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Brand Header */}
       <div className="p-4 border-b border-blue-800 bg-white flex justify-between items-center min-h-[90px] relative">
         <MCILogo className="h-16 w-full" />
-        {/* Mobile Close Button */}
         <button 
             onClick={onClose}
             className="md:hidden absolute top-2 right-2 p-1 text-slate-400 hover:text-slate-600 bg-slate-100 rounded-full"
@@ -73,7 +99,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </button>
       </div>
 
-      {/* Course Progress Bar (Top) */}
+      {/* Course Progress Bar */}
       <div className="px-5 py-4 border-b border-blue-800 bg-blue-950/50">
         <div className="flex justify-between items-end mb-2">
             <span className="text-[10px] font-bold uppercase tracking-wider text-blue-200">Course Progress</span>
@@ -111,7 +137,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
             const isCompleted = completedModules.has(module.id);
             const isActive = currentModuleId === module.id && activeTab === 'course';
             
-            // Check for completed simulations in this module
             const hasInteractive = module.content.some(c => c.type === ContentType.INTERACTIVE);
             const isInteractiveCompleted = hasInteractive && module.content.every((c, idx) => {
                 if (c.type !== ContentType.INTERACTIVE) return true;
@@ -131,7 +156,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       : 'text-blue-200 hover:bg-blue-800 hover:text-white'
                   }`}
                 >
-                  {/* Status Icon */}
                   <div className="mt-0.5 shrink-0">
                     {isCompleted ? (
                       <CheckCircle2 size={16} className={isActive ? "text-[#1e3a8a]" : "text-amber-400"} />
@@ -160,54 +184,57 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </ul>
       </nav>
 
-      {/* User & Contact Footer */}
+      {/* User & Action Footer */}
       <div className="bg-blue-950 border-t border-blue-900">
-        
-        {/* User Profile */}
         <div className="p-4 pb-2">
             <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-8 rounded-full bg-amber-400 flex items-center justify-center text-[#1e3a8a] font-bold shrink-0">
                     {userEmail.charAt(0).toUpperCase()}
                 </div>
                 <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-end mb-1">
                     <p className="text-sm font-medium truncate" title={userEmail}>{userEmail.split('@')[0]}</p>
-                    </div>
                     <div className="text-xs text-blue-400 truncate">
-                      Student
+                      {isAdmin ? 'MCI Admin' : 'Active Student'}
                     </div>
                 </div>
             </div>
             
-            {/* Feedback Button */}
-            {!isAdmin && (
-                <button 
-                    onClick={() => setIsFeedbackOpen(true)}
-                    className="w-full mb-3 flex items-center justify-center gap-2 py-2 text-xs rounded border border-blue-800 bg-blue-900/50 text-blue-200 hover:bg-amber-400 hover:text-[#1e3a8a] hover:border-amber-400 transition-colors font-medium"
-                >
-                    <MessageSquarePlus size={14} /> Give Feedback
-                </button>
-            )}
-
-            <div className="flex gap-2">
-                {isAdmin && (
+            <div className="grid grid-cols-2 gap-2 mb-3">
+                {/* 1. Primary Action Row */}
+                {!isAdmin ? (
+                    <button 
+                        onClick={() => setIsFeedbackOpen(true)}
+                        className="col-span-2 flex items-center justify-center gap-2 py-2 text-xs rounded border border-blue-800 bg-blue-900/50 text-blue-200 hover:bg-amber-400 hover:text-[#1e3a8a] hover:border-amber-400 transition-colors font-medium"
+                    >
+                        <MessageSquarePlus size={14} /> Give Feedback
+                    </button>
+                ) : (
                     <button 
                         onClick={() => onSelectTab(activeTab === 'admin' ? 'course' : 'admin')}
-                        className={`flex-1 flex items-center justify-center gap-2 py-2 text-xs rounded border transition-colors ${
+                        className={`col-span-2 flex items-center justify-center gap-2 py-2 text-xs rounded border transition-colors font-bold ${
                             activeTab === 'admin' 
-                            ? 'bg-amber-400 border-amber-400 text-[#1e3a8a] font-bold' 
-                            : 'border-blue-800 text-blue-400 hover:bg-blue-900 hover:text-white'
+                            ? 'bg-amber-400 border-amber-400 text-[#1e3a8a]' 
+                            : 'bg-blue-800 border-blue-700 text-white hover:bg-blue-700'
                         }`}
                     >
                         <ShieldCheck size={14} /> 
-                        {activeTab === 'admin' ? 'Exit' : 'Admin'}
+                        {activeTab === 'admin' ? 'Back to Course' : 'Admin Dashboard'}
                     </button>
                 )}
-                
+
+                {/* 2. Secondary Utility Row */}
+                <button 
+                    onClick={handleShare}
+                    className="col-span-1 flex items-center justify-center gap-2 py-2 text-xs rounded border border-blue-800 bg-blue-900/50 text-blue-200 hover:bg-emerald-500 hover:text-white transition-colors font-medium"
+                >
+                    {showCopied ? <CheckCircle2 size={14} /> : <Share2 size={14} />}
+                    {showCopied ? 'Copied' : 'Share'}
+                </button>
+
                 <button
                     onClick={onLogout}
-                    className="flex-1 px-3 py-2 text-xs rounded border border-blue-800 text-blue-400 hover:bg-red-900/50 hover:text-red-200 hover:border-red-800 transition-colors flex items-center justify-center gap-2"
-                    title="Sign Out"
+                    className="col-span-1 flex items-center justify-center gap-2 py-2 text-xs rounded border border-red-900 bg-red-950/20 text-red-400 hover:bg-red-600 hover:text-white transition-all font-bold"
+                    title="Logout to landing page"
                 >
                     <LogOut size={14} /> Sign Out
                 </button>
@@ -219,12 +246,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <a href="https://www.mciskills.com/" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-amber-400 transition-colors">
                 <Globe size={10} /> www.mciskills.com
             </a>
-            <a href="mailto:sales@mciskills.com" className="flex items-center gap-2 hover:text-amber-400 transition-colors">
-                <Mail size={10} /> sales@mciskills.com
-            </a>
-            <a href="https://wa.me/919977220325" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-amber-400 transition-colors">
-                <Phone size={10} /> +91 9977220325
-            </a>
+            <div className="flex justify-between items-center">
+                <a href="mailto:sales@mciskills.com" className="hover:text-amber-400 transition-colors">sales@mciskills.com</a>
+                <a href="https://wa.me/919977220325" target="_blank" rel="noreferrer" className="hover:text-amber-400 transition-colors">+91 9977220325</a>
+            </div>
         </div>
       </div>
     </div>

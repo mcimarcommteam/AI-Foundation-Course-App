@@ -6,39 +6,39 @@ export const COURSE_CONTENT: WeekModule[] = [
     id: 'week-1',
     weekRange: 'Week 1',
     title: 'What Actually IS Artificial Intelligence?',
-    description: 'Let’s skip the confusing sci-fi movie stuff. We will learn how computers actually learn using a simple "Toddler" analogy.',
+    description: 'Forget the sci-fi movies. We are going to learn how computers actually "think" using simple analogies like teaching a toddler.',
     content: [
       {
         type: ContentType.TEXT,
         heading: 'The "Toddler" Analogy',
-        body: 'Imagine you are teaching a toddler to recognize a **Cat**.\n\n**Method A (Old School Coding):**\nYou write a strict rulebook: "If it has triangular ears AND whiskers AND meows, it is a cat."\n*The Problem:* What if the cat lost an ear? Or doesn\'t meow? The computer gets confused because the rules were too strict. \n\n**Method B (Artificial Intelligence):**\nYou don\'t write rules. Instead, you show the toddler 50 photos of cats and say "Cat". Then 50 photos of dogs and say "Not Cat".\nEventually, the toddler\'s brain figures out the patterns (pointy ears, furry face) on its own.\n\n**AI is just Method B.** We stop writing rules and start showing examples.'
+        body: 'Imagine you want to teach a computer to recognize a **Cat**.\n\n**Method A: Traditional Coding (The Rulebook)**\nYou have to write exact rules: "If it has triangular ears, AND whiskers, AND meows, THEN it is a cat."\n*The Problem:* What if the cat lost an ear? Or is sleeping (not meowing)? The computer gets confused because the rules were too strict. This is how software worked for the last 50 years.\n\n**Method B: Artificial Intelligence (The Flashcards)**\nYou don\'t write rules. Instead, you act like a parent teaching a toddler. You show the computer 1,000 photos of cats and say "Cat". Then 1,000 photos of dogs and say "Not Cat".\n\nEventually, the computer\'s "brain" figures out the patterns (fur texture, ear shape) on its own. **AI is simply the shift from writing rules to showing examples.**'
       },
       {
         type: ContentType.TEXT,
-        heading: 'The Two Big Words You Need to Know',
-        body: '1. **Training (The Studying Phase):**\nThis is when the AI is like a student in a library, looking at millions of photos or reading books to learn patterns. It is "studying".\n\n2. **Inference (The Test Phase):**\nThis is when the AI is finished studying. You show it a brand new photo it has never seen before, and it uses what it learned to make a guess ("That\'s a cat!").'
+        heading: 'The Two Phases of AI Learning',
+        body: 'Just like a student in school, AI goes through two stages:\n\n1. **Training (Studying):**\nThis is the heavy lifting. The AI looks at millions of examples. It takes a lot of time and electricity. It is "learning" the patterns.\n\n2. **Inference (The Exam):**\nThis happens after training. You show the AI a *brand new* photo it has never seen before, and it uses what it learned to make a guess. When you use ChatGPT, you are using "Inference".'
       },
       {
         type: ContentType.CASE_STUDY,
         heading: 'Real World: The Spam Filter',
-        body: 'Remember when email spam filters were terrible? That\'s because they used **Rules**. Programmers told them: "Block emails with the word \'FREE MONEY\'".\n\nSo spammers just changed it to "FR33 M0N3Y". The rule broke.\n\nGoogle switched to **AI**. It fed the computer millions of spam emails. The AI learned that "Bad Grammar" + "Urgent Request" + "Weird Links" usually equals Spam. It learned the *vibe* of spam, not just the words.'
+        body: 'Remember when email spam filters were terrible? That\'s because they used **Method A (Rules)**. Programmers told them: "Block emails with the word \'FREE MONEY\'".\n\nSo spammers just changed it to "FR33 M0N3Y". The rule broke, and spam got through.\n\nGoogle switched to **Method B (AI)**. It fed the computer millions of spam emails. The AI learned that "Bad Grammar" + "Urgent Request" + "Weird Links" usually equals Spam. It learned the *vibe* of spam, not just the keywords.'
       },
       {
         type: ContentType.ACTIVITY,
-        heading: 'Try It: The Chair Test',
-        body: 'Can you write a rule to define a "Chair"?\n\n1. "It has 4 legs and you sit on it." -> *Wait, a horse has 4 legs and you sit on it. Is a horse a chair?*\n2. "Okay, it has no legs and is soft." -> *That describes a beanbag. Is a beanbag a chair?*\n\n**Lesson:** The real world is too messy for rules. That is why we need AI to learn concepts by example.'
+        heading: 'Activity: The Chair Test',
+        body: 'Let\'s prove why Rules fail and AI works. Try to write a rule to define a "Chair".\n\n**Attempt 1:** "It has 4 legs and you sit on it."\n*Counter-point:* A horse has 4 legs and you sit on it. Is a horse a chair?\n\n**Attempt 2:** "Okay, it is a piece of furniture made for sitting."\n*Counter-point:* What about a beanbag? It has no legs. What about a swing?\n\n**Lesson:** The real world is too messy for strict rules. That is why we need AI to learn concepts by example.'
       },
       {
         type: ContentType.LAB,
         heading: 'Lab 1: Train Your First AI',
-        body: 'Let\'s build an AI in 2 minutes. We will teach your computer to tell the difference between "You" and "Your Phone".\n\n1. Open Teachable Machine.\n2. Click "Image Project".\n3. Show it your face for Class 1.\n4. Show it your phone for Class 2.\n5. Click "Train".',
+        body: 'We are going to build an AI right now in your browser. We will teach it to tell the difference between "You" and "Your Phone".\n\n**Step-by-Step Instructions:**\n1. Click the link below to open "Teachable Machine".\n2. Click **"Get Started"** -> **"Image Project"** -> **"Standard Image Model"**.\n3. **Class 1:** Click "Webcam" and hold the record button while looking at the camera. Take 50 photos.\n4. **Class 2:** Rename it "Phone". Hold your phone up to the camera. Click "Webcam" and take 50 photos of the phone.\n5. Click **"Train Model"** (Wait 30 seconds).\n6. **Test it:** Show the camera your face, then your phone. Watch the bars change!',
         linkUrl: 'https://teachablemachine.withgoogle.com/train',
-        linkText: 'Open the Lab'
+        linkText: 'Open Teachable Machine Lab'
       }
     ],
     quizQuestions: [
-      { question: "What is the main difference between Coding and AI?", options: ["Coding is for smart people, AI is for robots", "Coding uses strict rules, AI learns from examples", "Coding is faster", "There is no difference"], correctIndex: 1, explanation: "Coding = You write the rules. AI = The computer figures out the rules from data." },
-      { question: "In the Toddler analogy, what is the 'Training Data'?", options: ["The toddler", "The flashcards (photos) you show them", "The parents", "The school"], correctIndex: 1, explanation: "The photos are the examples the AI studies to learn." },
+      { question: "What is the main difference between Traditional Coding and AI?", options: ["Coding is for smart people, AI is for robots", "Coding uses strict rules, AI learns from examples", "Coding is faster", "There is no difference"], correctIndex: 1, explanation: "Coding = You write the rules. AI = The computer figures out the rules from data." },
+      { question: "In the Toddler analogy, what represents the 'Training Data'?", options: ["The toddler", "The flashcards (photos) you show them", "The parents", "The school"], correctIndex: 1, explanation: "The photos are the examples the AI studies to learn." },
       { question: "Why did the old spam filters fail?", options: ["Computers were slow", "Spammers tricked the strict rules (e.g. FR33 M0NEY)", "Internet didn't exist", "People like spam"], correctIndex: 1, explanation: "Strict rules are easy to trick. AI learns patterns that are harder to trick." },
       { question: "What do we call the phase where the AI is 'studying' the data?", options: ["Training", "Inference", "Coding", "Guessing"], correctIndex: 0, explanation: "Training is the learning phase." },
       { question: "What do we call the phase where the AI makes a prediction on a NEW photo?", options: ["Training", "Inference", "Homework", "Teaching"], correctIndex: 1, explanation: "Inference is applying what it learned to something new." },
@@ -53,27 +53,27 @@ export const COURSE_CONTENT: WeekModule[] = [
     id: 'week-2',
     weekRange: 'Week 2',
     title: 'Data: The Food for the Brain',
-    description: 'An AI is only as smart as the information you feed it. If you feed it junk, it gets "sick".',
+    description: 'An AI is only as smart as the information you feed it. If you feed it junk, it gets "sick". We call this GIGO.',
     content: [
       {
         type: ContentType.TEXT,
-        heading: 'The Chef Analogy',
-        body: 'Think of AI as a **Master Chef** (The Computer). \n- The **Algorithms** are the Kitchen Tools (Oven, Knives).\n- The **Data** is the Ingredients (Vegetables, Meat).\n\nYou can have the best Chef and the most expensive Oven in the world, but if you give them rotten eggs, the meal will taste bad.\n\nIn AI, we call this **"Garbage In, Garbage Out"**.'
+        heading: 'The Pizza Chef Analogy',
+        body: 'Think of AI as a **Master Pizza Chef** (The Computer). \n- The **Algorithms** are the Oven and Tools.\n- The **Data** is the Ingredients (Dough, Sauce, Cheese).\n\nYou can have the best Chef and the most expensive Oven in the world, but if you give them rotten tomatoes and moldy cheese, the pizza will be terrible.\n\nIn AI, we call this **"Garbage In, Garbage Out" (GIGO)**. The quality of the AI depends 100% on the quality of the data.'
       },
       {
         type: ContentType.TEXT,
-        heading: 'Types of Data',
-        body: '1. **Structured Data (Neat & Tidy):**\nThink of an Excel spreadsheet. Rows and columns. Computers LOVE this. It\'s easy to read.\n\n2. **Unstructured Data (Messy):**\nThink of a messy bedroom. Photos, voice notes, emails, videos. Computers used to hate this, but modern AI is great at organizing it.'
+        heading: 'Structured vs. Unstructured Data',
+        body: 'Computers are picky eaters. They like their food prepared in certain ways.\n\n1. **Structured Data (The Bento Box):**\nThis is data that is neat and organized. Think of an Excel spreadsheet. Rows and columns. Names, dates, prices. Computers have always loved this.\n\n2. **Unstructured Data (The Smoothie):**\nThis is messy. Photos, emails, tweets, voice notes, YouTube videos. Until recently, computers couldn\'t understand this. But modern AI (like Gemini) is amazing at understanding this messy "smoothie" of data.'
       },
       {
         type: ContentType.CASE_STUDY,
-        heading: 'When Bad Data Cost $500 Million',
-        body: 'Zillow (a real estate app) tried to use AI to buy houses automatically. \n*The Mistake:* Their data only had numbers (Square footage, number of bedrooms). It didn\'t have the "human" stuff (Does the house smell like cats? Is there a noisy highway next door?).\n\n*The Result:* The AI bought thousands of bad houses for too much money, and Zillow lost $500 Million.'
+        heading: 'Case Study: The $500 Million Mistake',
+        body: 'Zillow (a real estate app) tried to use AI to buy houses automatically. \n*The Mistake:* Their dataset only had numbers: "2000 sq ft, 3 bedrooms, built in 1990".\n\n*What was missing?* The "Unstructured" human data. The AI didn\'t know that the house smelled like cats, or that there was a noisy highway right behind the backyard.\n\n*The Result:* The AI bought thousands of bad houses for too much money. Zillow lost $500 Million and had to fire the robots.'
       },
       {
         type: ContentType.DATA_VISUALIZATION,
-        heading: "Interactive: See Bias Happen",
-        body: "If we only show the AI examples of Group A being hired, it will think Group B is 'bad'. Play with the slider to see how the data changes the AI's mind.",
+        heading: "Interactive: See Bias in Action",
+        body: "If we train an AI to hire managers, but we only show it resumes of men, what happens? It learns that 'Man = Manager'.\n\n**Activity:**\n1. Move the slider below to change the training data.\n2. Watch how the AI's 'Hiring Confidence' changes for Group B even though they are equally qualified.\n3. This is how bias creeps into algorithms.",
         dataVisConfig: {
             type: 'BIAS_SIMULATOR',
             title: "Hiring Algorithm Simulator",
@@ -83,12 +83,12 @@ export const COURSE_CONTENT: WeekModule[] = [
       {
         type: ContentType.ACTIVITY,
         heading: 'Activity: The Labeling Game',
-        body: 'Imagine you are teaching an AI to find "Healthy Food".\n1. Apple? -> You label it "Healthy".\n2. Donut? -> You label it "Unhealthy".\n3. **What about a Salad loaded with bacon and ranch dressing?**\n\nIf you label it "Healthy", the AI might learn that bacon is healthy!\n**Lesson:** Teaching AI is hard because real life isn\'t always black and white.'
+        body: 'Data isn\'t just found; it has to be "labeled" by humans. Imagine you are teaching an AI to find "Healthy Food".\n\n1. **Apple?** -> You label it "Healthy".\n2. **Donut?** -> You label it "Unhealthy".\n3. **Cobb Salad?** -> It has lettuce (Healthy) but also bacon and ranch dressing (Unhealthy).\n\n**Critical Thinking:** If you label the salad "Healthy", the AI might learn that bacon is healthy. If you label it "Unhealthy", it might learn lettuce is bad.\n\n**Lesson:** Labeling data is difficult because real life isn\'t always black and white.'
       }
     ],
     quizQuestions: [
       { question: "What does 'Garbage In, Garbage Out' mean?", options: ["AI eats trash", "If you give AI bad data, you get bad results", "AI recycles", "Computers are dirty"], correctIndex: 1, explanation: "The quality of the AI depends entirely on the quality of the data." },
-      { question: "In the Chef analogy, what represents the Data?", options: ["The Oven", "The Chef", "The Ingredients", "The Customer"], correctIndex: 2, explanation: "Data is the raw material the AI cooks with." },
+      { question: "In the Pizza Chef analogy, what represents the Data?", options: ["The Oven", "The Chef", "The Ingredients", "The Customer"], correctIndex: 2, explanation: "Data is the raw material the AI cooks with." },
       { question: "Why did Zillow's AI lose money?", options: ["It was hacked", "It missed 'human' data like smells and noise", "It was too smart", "It bought cars instead"], correctIndex: 1, explanation: "The dataset was incomplete—it missed key factors that affect price." },
       { question: "What is a 'Dataset'?", options: ["A computer chip", "A collection of examples used for training", "A calendar date", "A robot"], correctIndex: 1, explanation: "A dataset is just a big pile of examples for the AI to learn from." },
       { question: "What is 'Bias' in data?", options: ["When the data is too small", "When the data unfairly favors one group over another", "When the data is expensive", "When the computer overheats"], correctIndex: 1, explanation: "If history was unfair, the data is unfair, and the AI becomes unfair." },
@@ -103,27 +103,27 @@ export const COURSE_CONTENT: WeekModule[] = [
     id: 'week-3',
     weekRange: 'Week 3',
     title: 'Computer Vision: How Computers "See"',
-    description: 'Computers don\'t have eyes. They see the world as a giant grid of numbers. Let\'s look under the hood.',
+    description: 'Computers don\'t have eyes. They see the world as a giant grid of numbers. We will decode the Matrix.',
     content: [
       {
         type: ContentType.TEXT,
         heading: 'The Mosaic Analogy',
-        body: 'Zoom in really close on your phone screen. What do you see? Tiny little colored squares. These are **Pixels**.\n\nTo a computer, a photo of a banana isn\'t a fruit. It\'s just an Excel sheet of numbers.\n- **255** means "Bright White".\n- **0** means "Dark Black".\n\nThe computer finds shapes by looking for changes in these numbers. If a bunch of 255s suddenly switch to 0s, the computer thinks: "Aha! That must be an edge."'
+        body: 'Zoom in really close on your phone screen. What do you see? You don\'t see a smooth picture. You see tiny little colored squares. These are **Pixels**.\n\nTo a computer, a photo of a banana isn\'t a fruit. It is an Excel sheet of numbers.\n- **255** means "Bright White".\n- **0** means "Dark Black".\n\nThe computer finds shapes by looking for math in these numbers. If a bunch of 255s (White) suddenly switch to 0s (Black), the computer thinks: "Aha! That huge change in numbers must be an edge."'
       },
       {
         type: ContentType.TEXT,
-        heading: 'Cool Vision Powers',
-        body: '1. **Object Detection:** Drawing a box around things. (e.g., A self-driving car drawing a box around a pedestrian).\n2. **Facial Recognition:** Measuring the distance between your eyes and the shape of your nose to create a "Face Password".\n3. **Medical Scanning:** AI can look at X-Rays faster than doctors to find broken bones.'
+        heading: 'The Flashlight Method (Convolution)',
+        body: 'How does an AI find a face in a crowd?\n\nImagine you are in a dark room with a flashlight. You can\'t see the whole room at once. You shine your beam on the top-left corner, then move it slightly to the right, scanning row by row.\n\nAI does this with images. It scans a small window (the flashlight) over the image looking for specific features:\n1. **Layer 1:** Looks for simple lines and curves.\n2. **Layer 2:** Puts lines together to find shapes (circles, squares).\n3. **Layer 3:** Puts shapes together to find objects (an eye, a nose).\n4. **Layer 4:** "It\'s a Face!"'
       },
       {
         type: ContentType.ACTIVITY,
         heading: 'Activity: The Zoom Test',
-        body: '1. Open a photo on your phone.\n2. Zoom in as much as possible until it looks blocky.\n3. Those blocks are what the AI sees. \n\nNotice how a "curved" line is actually just a staircase of squares? The AI does math on those squares to figure out it\'s a curve.'
+        body: '1. Open a photo on your phone.\n2. Zoom in as much as possible until it looks blocky.\n3. Those blocks are what the AI sees. \n\nNotice how a "curved" line is actually just a staircase of square pixels? The AI does geometry on those squares to figure out it\'s a curve.'
       },
       {
         type: ContentType.AI_LAB,
         heading: 'Lab: Vision Analysis',
-        body: 'Upload a photo of anything on your desk. See how the AI breaks it down and describes it.',
+        body: 'Let\'s test the "Vision Analyzer" tool below. It combines object detection (finding things) with language (describing things).\n\n**Instructions:**\n1. Take a photo of your desk or room.\n2. Upload it to the analyzer below.\n3. Ask it: "List every item on this desk and tell me what color it is."\n4. See how it translates pixels into a list of concepts.',
         aiConfig: { tool: 'VISION_ANALYZER', placeholder: 'Upload a photo...' }
       }
     ],
@@ -144,31 +144,31 @@ export const COURSE_CONTENT: WeekModule[] = [
     id: 'week-4',
     weekRange: 'Week 4',
     title: 'NLP: How Computers Read & Write',
-    description: 'How does ChatGPT work? It\'s actually just a super-powered autocomplete, like on your phone.',
+    description: 'How does ChatGPT work? It\'s not magic, and it doesn\'t have a brain. It\'s just a super-powered "Autocomplete".',
     content: [
       {
         type: ContentType.TEXT,
-        heading: 'The "Autocomplete" Analogy',
-        body: 'When you type "Happy" on your phone, it suggests "Birthday". \nWhy? Not because it knows you have a friend with a birthday. But because it has seen the words "Happy" and "Birthday" together millions of times.\n\n**ChatGPT is the same thing.** It doesn\'t "know" facts. It just predicts the next word based on probability. It is a "Statistical Parrot".'
+        heading: 'The "Word Chain" Game',
+        body: 'Imagine playing a game with friends where you say a word, and they have to guess the next word.\n\n**You:** "Happy..."\n**Friend:** "Birthday!" (Because they have heard that pair a million times).\n\n**ChatGPT is playing this game.** It has read the entire internet. It knows that "Once upon a..." is usually followed by "time".\n\nIt calculates the probability of the next word. It is not "thinking"; it is predicting. We call this a **"Stochastic Parrot"**—it repeats patterns without truly understanding the meaning.'
       },
       {
         type: ContentType.TEXT,
-        heading: 'Key Words',
-        body: '- **NLP (Natural Language Processing):** Teaching computers to understand human languages (English, Spanish, Emoji).\n- **Token:** Computers don\'t read words. They read chunks called Tokens. The word "Reading" might be split into "Read" and "ing".\n- **Context:** The words *surrounding* a word. \n(e.g., "I went to the **bank** to fish" vs "I went to the **bank** to get cash". The surrounding words tell the AI which "bank" you mean.)'
+        heading: 'Word Math (Vectors)',
+        body: 'How does a computer understand that a "King" is similar to a "Queen"? It turns words into numbers (coordinates on a map).\n\nIf you take the location of **King**, subtract the location of **Man**, and add the location of **Woman**, you land exactly on the location of **Queen**.\n\n**King - Man + Woman = Queen**\n\nThis is how AI understands relationships and analogies. It maps words in a giant 3D space.'
       },
       {
         type: ContentType.ACTIVITY,
         heading: 'Game: Guess the Next Word',
-        body: 'Cover the screen and ask a friend to finish this sentence:\n\n*"The quick brown fox jumps over the _____"*\n\nThey will almost certainly say **"Dog"**. Why? Because that pattern is super common. AI works exactly the same way. It chooses the most likely next word.'
+        body: 'Let\'s be the AI. Cover the screen below and ask a friend to finish this sentence:\n\n*"The quick brown fox jumps over the _____"*\n\nThey will almost certainly say **"Dog"**. Why? Because that pattern is super common in English.\n\nNow try: *"The quick brown fox jumps over the... moon."*\nIt sounds weird, right? That\'s because it has "Low Probability". AI always tries to pick the "High Probability" words unless you tell it to be creative.'
       },
       {
         type: ContentType.INTERACTIVE,
-        body: "Try to confuse the Robot. I've programmed it to be very literal.",
+        body: "I have programmed this Robot to be extremely literal. It does not understand slang or idioms.",
         simulationConfig: {
-          persona: "I am a literal robot. I do not understand slang.",
-          objective: "Explain 'Break a leg' to the robot without confusing it.",
-          successCondition: "If explained as 'Good luck', say [SUCCESS].",
-          initialMessage: "Human, you said 'Break a leg'. Why do you want to harm bones?"
+          persona: "I am a literal robot (Series 800). I do not understand human slang.",
+          objective: "Explain the phrase 'Break a leg' to the robot without confusing it.",
+          successCondition: "If explained as 'Good luck' or 'Do your best', say [SUCCESS].",
+          initialMessage: "Human, you said 'Break a leg' before the performance. Why do you wish for bone fractures? That seems inefficient."
         }
       }
     ],
@@ -178,7 +178,7 @@ export const COURSE_CONTENT: WeekModule[] = [
       { question: "What is a 'Token'?", options: ["A coin", "A chunk of text (word or part of a word)", "A password", "A game"], correctIndex: 1, explanation: "AI breaks text into small chunks called tokens." },
       { question: "Does AI 'know' facts?", options: ["Yes, it's a genius", "No, it just remembers patterns of words", "It asks Siri", "It guesses"], correctIndex: 1, explanation: "It doesn't know truth; it knows which words usually go together." },
       { question: "Why is Sarcasm hard for AI?", options: ["It has no humor", "Sarcasm means the opposite of the literal words", "It hates jokes", "It's rude"], correctIndex: 1, explanation: "AI struggles when words don't mean their literal definition." },
-      { question: "What is 'Translation'?", options: ["Moving files", "Converting text from one language to another", "Deleting text", "Typing"], correctIndex: 1, explanation: "Like Google Translate turning English into Spanish." },
+      { question: "What is 'Translation'?", options: ["Moving files", "Converting text from one language to another", "Deleting text", "Typing", "Like Google Translate turning English into Spanish."], correctIndex: 1, explanation: "Like Google Translate turning English into Spanish." },
       { question: "What is 'Sentiment Analysis'?", options: ["Checking spelling", "Figuring out if a message is Happy or Angry", "Counting words", "Writing poems"], correctIndex: 1, explanation: "Companies use this to check if customers are happy." },
       { question: "What is 'Context'?", options: ["The surrounding words that give meaning", "The font size", "The user's name", "The screen brightness"], correctIndex: 0, explanation: "Context tells you if 'bat' means a baseball bat or the animal." },
       { question: "Can NLP write computer code?", options: ["No", "Yes, code is just another language with grammar", "Only Python", "Never"], correctIndex: 1, explanation: "Yes! Languages like Python have grammar just like English." },
@@ -189,27 +189,27 @@ export const COURSE_CONTENT: WeekModule[] = [
     id: 'week-5',
     weekRange: 'Week 5',
     title: 'Hallucinations: When AI Lies',
-    description: 'AI models want to please you. Sometimes, they make things up just to give you an answer.',
+    description: 'AI models want to please you. Sometimes, they make things up just to give you an answer. It\'s not lying; it\'s "dreaming".',
     content: [
       {
         type: ContentType.TEXT,
         heading: 'The "Pleaser" Personality',
-        body: 'Imagine a student who is terrified of saying "I don\'t know." If you ask them a question, they will invent a confident lie rather than admit they don\'t know. \n\nAI is like this. It is designed to **finish the sentence**, not to tell the truth. If the most likely sentence is a lie, it will tell the lie. We call this a **Hallucination**.'
+        body: 'Imagine a student taking a test who is terrified of leaving an answer blank. Even if they have no idea what the answer is, they will write a very confident, detailed essay that is completely wrong.\n\nAI is like this. It is designed to **finish the sentence**, not to tell the truth. If the most mathematically likely sentence is a lie, it will tell the lie. We call this a **Hallucination**.'
       },
       {
         type: ContentType.CASE_STUDY,
         heading: 'The Lawyer Who Got in Trouble',
-        body: 'A lawyer used ChatGPT to write a document for court. The AI listed 6 court cases as evidence. \n*The Catch:* Those cases didn\'t exist! The AI made up fake names like "Varghese v. China Airlines" because they *sounded* like real cases. The lawyer got in huge trouble.'
+        body: 'A lawyer in New York used ChatGPT to write a document for court. He asked the AI to find previous court cases to support his argument. \n\n*The Catch:* Those cases didn\'t exist! The AI made up fake names like "Varghese v. China Airlines" because they *sounded* like real cases. It even made up fake quotes for the judges. The lawyer submitted this to the court and got in huge trouble.\n\n**Lesson:** Never trust AI for facts without checking them yourself.'
       },
       {
         type: ContentType.TEXT,
         heading: 'How to Fix It: Grounding',
-        body: 'Think of a "Closed Book" test vs an "Open Book" test.\n\n- **Standard AI (Closed Book):** It relies on its memory. It might misremember facts.\n- **Grounding (Open Book):** You give the AI access to Google Search or a document. It looks up the facts *before* answering. This stops it from lying.'
+        body: 'Think of a "Closed Book" test vs an "Open Book" test.\n\n- **Standard AI (Closed Book):** It relies on its fuzzy memory. It might misremember facts.\n- **Grounding (Open Book):** You give the AI access to Google Search or a specific document. It looks up the facts *before* answering.\n\nWhen you use the "Tutor" in this app, you can switch on "Web Grounding" to make it look up real facts.'
       },
       {
         type: ContentType.ACTIVITY,
         heading: 'Activity: Catch the Lie',
-        body: 'Ask the AI Tutor (turn OFF search): "Who is John Smithson from Mars who invented the hoverboard in 1999?"\n\nWatch how confidently it writes a biography for a person who DOES NOT EXIST. It will invent schools, awards, and dates. It is prioritizing *storytelling* over *truth*.'
+        body: 'Go to the Tutor tab and turn OFF search/grounding. Then ask this trick question:\n\n*"Who is John Smithson from Mars who invented the hoverboard in 1999?"*\n\n**What will happen?**\nA human would say "That person doesn\'t exist."\nThe AI might say: "John Smithson was a brilliant engineer who..." and invent a whole biography. It prioritizes *storytelling* over *truth*.'
       }
     ],
     quizQuestions: [
@@ -229,27 +229,27 @@ export const COURSE_CONTENT: WeekModule[] = [
     id: 'week-6',
     weekRange: 'Week 6',
     title: 'Bias & Ethics',
-    description: 'AI learns from humans. And humans... aren\'t perfect. We explore the dark side of algorithms.',
+    description: 'AI learns from humans. And humans... aren\'t perfect. We explore the dark side of algorithms and the "Echo Chamber".',
     content: [
       {
         type: ContentType.TEXT,
         heading: 'The Mirror Effect',
-        body: 'AI is like a mirror. It reflects humanity. \nIf we train the AI on the internet, and the internet has racism or sexism, the AI will learn to be racist or sexist.\n\n**Bias** is when the AI treats some people worse than others because of the bad patterns it learned.'
+        body: 'AI is like a mirror. It reflects humanity. \nIf we train the AI on the internet, and the internet has racism or sexism, the AI will learn to be racist or sexist.\n\n**Bias** is when the AI treats some people worse than others because of the bad patterns it learned from history.'
       },
       {
         type: ContentType.CASE_STUDY,
         heading: 'Amazon\'s Hiring Fail',
-        body: 'Amazon built an AI to pick the best resumes. But for the last 10 years, most of their hires were men.\n\nThe AI learned the pattern: "Men = Good".\nIt started throwing away resumes that had the word "Women\'s" (like "Women\'s Chess Club"). Amazon had to delete the AI because it was sexist.'
+        body: 'Amazon built an AI to pick the best resumes. But for the last 10 years, most of their engineers were men.\n\nThe AI learned the pattern: "Men = Good Engineer".\nIt started throwing away resumes that had the word "Women\'s" (like "Women\'s Chess Club"). Amazon had to delete the AI because it was accidentally sexist.'
       },
       {
         type: ContentType.TEXT,
         heading: 'The "Black Box" Problem',
-        body: 'Imagine a teacher gives you an F, but refuses to tell you why.\n\nThat is a **Black Box**. We can see the answer the AI gives, but we don\'t always know *how* it decided. If an AI denies your bank loan, but can\'t explain why, is that fair?'
+        body: 'Imagine a teacher gives you an F on a paper, but refuses to tell you why. They just say "Because I feel like it."\n\nThat is a **Black Box**. We can see the answer the AI gives, but we don\'t always know *how* it decided. Deep Learning is very complex math. If an AI denies your bank loan, but can\'t explain why, is that fair?'
       },
       {
         type: ContentType.ACTIVITY,
-        heading: 'Activity: Google "CEO"',
-        body: 'Go to Google Images and search for "CEO". \nWhat do you see? Mostly men in suits? \n\nBecause history has mostly had male CEOs, the data teaches the AI that "CEO = Man". This is how bias happens.'
+        heading: 'Activity: The Echo Chamber',
+        body: '1. Open Google Images.\n2. Search for "CEO".\n3. Scroll down. Count how many men vs women you see.\n4. Search for "Nurse". Count again.\n\nThe AI is showing you stereotypes because that is what exists in the data. If we aren\'t careful, AI will just repeat the past instead of helping us build a better future.'
       }
     ],
     quizQuestions: [
@@ -269,27 +269,27 @@ export const COURSE_CONTENT: WeekModule[] = [
     id: 'week-7',
     weekRange: 'Week 7',
     title: 'Generative AI: Creating, Not Just Thinking',
-    description: 'Old AI could only analyze. New AI can create. Let\'s make art and movies.',
+    description: 'Old AI could only analyze (Is this a cat?). New AI can create (Paint me a cat). We will learn how Diffusion works.',
     content: [
       {
         type: ContentType.TEXT,
         heading: 'Artist vs. Critic',
-        body: '- **Old AI (Discriminative):** It was a Critic. You show it a painting, and it says "That is a Cat".\n- **New AI (Generative):** It is an Artist. You say "Cat", and it *paints* one from scratch.'
+        body: '- **Old AI (Discriminative):** It was a Critic. You show it a painting, and it says "That is a Cat". It couldn\'t make anything new.\n- **New AI (Generative):** It is an Artist. You say "Cat", and it *paints* one from scratch. It creates new pixels that have never existed before.'
       },
       {
         type: ContentType.TEXT,
-        heading: 'How Image Gen Works (Diffusion)',
-        body: 'Imagine looking at a cloud. It looks like nothing (static noise). Then you squint, and it starts to look like a bunny.\n\n**Diffusion Models** start with a screen of static (fuzz). Then they slowly remove the fuzz until a clear image appears. They are essentially "hallucinating" a picture from the noise.'
+        heading: 'The Cloud Gazing Analogy (Diffusion)',
+        body: 'How does AI paint?\n\nImagine looking at a cloudy sky. It looks like random static (noise). But if you squint, you might say, "Hey, that cloud looks like a bunny!"\n\n**Diffusion Models** work exactly like this.\n1. They start with a canvas of pure static (random noise).\n2. You give a prompt: "A bunny".\n3. The AI slowly removes the noise, step-by-step, carving out the shape of a bunny from the static.\n\nIt is essentially "hallucinating" a clear picture out of the chaos.'
       },
       {
         type: ContentType.TEXT,
-        heading: 'Parameters: The Creativity Dial',
-        body: 'You can control how crazy the AI gets.\n- **Low Temperature:** The AI is boring, safe, and predictable.\n- **High Temperature:** The AI is wild, creative, and might make mistakes.'
+        heading: 'Temperature: The Creativity Dial',
+        body: 'You can control how "wild" the AI gets with a setting called **Temperature**.\n\n- **Low Temperature (0.2):** The AI is boring, safe, and predictable. Good for factual writing.\n- **High Temperature (0.9):** The AI is wild, creative, and takes risks. Good for poetry or art, but might make mistakes.'
       },
       {
         type: ContentType.AI_LAB,
         heading: 'Lab: Magic Editor',
-        body: 'Upload a photo. Tell the AI to "Add sunglasses" or "Change the background to Mars". It paints new pixels that blend in perfectly.',
+        body: 'We are going to use the "Magic Editor" tool below. It allows you to change reality.\n\n**Instructions:**\n1. Upload a photo of your face or an object.\n2. In the prompt box, type: "Add cool sunglasses" or "Change the background to Mars".\n3. Click **Edit**.\n4. Watch how the AI understands the lighting and perspective to blend the new items perfectly.',
         aiConfig: { tool: 'IMAGE_EDITOR', placeholder: 'Instruction: e.g., "Make it look like a cartoon"' }
       }
     ],
@@ -310,27 +310,27 @@ export const COURSE_CONTENT: WeekModule[] = [
     id: 'week-8',
     weekRange: 'Week 8',
     title: 'How to Talk to Robots (Prompt Engineering)',
-    description: 'The AI is smart, but it can\'t read your mind. You have to learn to ask for what you want.',
+    description: 'The AI is smart, but it can\'t read your mind. You have to learn the language of "Prompting" to get what you want.',
     content: [
       {
         type: ContentType.TEXT,
-        heading: 'Be Specific!',
-        body: 'If you tell a human "Write an email", they know what you mean. \nIf you tell an AI "Write an email", it will write a generic, boring email.\n\n**Better Prompt:**\n"Write a polite email to my boss, Sarah. Ask for next Friday off for a dentist appointment. Keep it under 50 words."\n\n**The Rule:** The more specific you are, the better the result.'
+        heading: 'The Genie Analogy',
+        body: 'Treat AI like a Genie in a lamp. It gives you *exactly* what you ask for, but if you aren\'t specific, it will mess it up.\n\n**Bad Wish:** "I want to fly."\n*Result:* The Genie turns you into a bird. You wanted a plane ticket.\n\n**Good Wish:** "I want two business-class tickets to Paris on Friday."\n\n**The Rule:** The more constraints and details you give, the better the result.'
       },
       {
         type: ContentType.TEXT,
-        heading: 'Pro Tip: Give Examples',
-        body: 'This is called **Few-Shot Prompting**.\nInstead of just saying "Write a poem", say:\n\n"Here are 3 examples of poems I like: [Example 1], [Example 2], [Example 3]. Now write a new one just like these."\n\nThe AI will copy your style perfectly.'
+        heading: 'Technique 1: Few-Shot Prompting',
+        body: 'Don\'t just tell the AI what to do; SHOW it.\n\n**Without Examples (Zero-Shot):**\n"Write a tweet about coffee."\n*Result:* "Coffee is good." (Boring)\n\n**With Examples (Few-Shot):**\n"Write a tweet about coffee. Here are examples of my style:\n- Pizza is the fuel of champions 🍕\n- Sleeping is just time travel to breakfast 😴\n\nNow write one about Coffee."\n*Result:* "Espresso is just a hug in a mug ☕️"'
       },
       {
         type: ContentType.TEXT,
-        heading: 'Pro Tip: "Think Step-by-Step"',
-        body: 'If you ask a math question, the AI might guess wrong. \nBut if you add the magic words **"Think step-by-step"**, the AI will show its work. This makes it much smarter at logic puzzles.'
+        heading: 'Technique 2: "Think Step-by-Step"',
+        body: 'If you ask a math question, the AI might guess wrong because it tries to answer instantly.\n\nBut if you add the magic words **"Think step-by-step"**, you force the AI to show its work.\n\n"Step 1: Calculate the total... Step 2: Divide by 5..."\n\nThis simple phrase increases the AI\'s accuracy on logic puzzles by over 50%!'
       },
       {
         type: ContentType.ACTIVITY,
         heading: 'Activity: The "Too Vague" Test',
-        body: '1. Ask the AI: "Plan a trip." (See how bad the answer is).\n2. Ask the AI: "Plan a 3-day trip to Tokyo for a couple who loves anime and sushi, with a budget of $100 per day."\n\nSee the difference? Context is King.'
+        body: 'Go to the Tutor tab and try this experiment:\n\n1. Ask: "Plan a trip." \n*(Watch how generic the answer is. It doesn\'t know where you are or what you like.)*\n\n2. Ask: "Plan a 3-day trip to Tokyo for a couple who loves anime and cheap sushi, with a budget of $100 per day."\n\nSee the difference? **Context is King.**'
       }
     ],
     quizQuestions: [
@@ -350,22 +350,22 @@ export const COURSE_CONTENT: WeekModule[] = [
     id: 'week-9',
     weekRange: 'Week 9',
     title: 'AI Agents: From Talking to Doing',
-    description: 'Chatbots just talk. "Agents" can actually use the internet, open apps, and do work for you.',
+    description: 'Chatbots just talk. "Agents" can actually use the internet, open apps, and do work for you. It\'s the difference between a consultant and an employee.',
     content: [
       {
         type: ContentType.TEXT,
         heading: 'Brain in a Jar vs. Brain with Hands',
-        body: '- **Chatbot:** It\'s a Brain in a Jar. It can give advice, but it can\'t *do* anything.\n- **Agent:** It\'s a Brain with Hands. It has "Tools" like a Web Browser, Calculator, or Calendar access.\n\nExample: You ask "Book me a flight". A Chatbot says "Here is how you book a flight". An Agent actually goes to Expedia and books it.'
+        body: '- **Chatbot:** It\'s a Brain in a Jar. It can give advice ("Here is a recipe"), but it can\'t *cook* the meal.\n- **Agent:** It\'s a Brain with Hands. It has "Tools". It can open your calendar, browse the web, and send emails.\n\n**Example:**\nChatbot: "Here is a link to United Airlines."\nAgent: "I have booked your flight to New York and added it to your calendar."'
       },
       {
         type: ContentType.TEXT,
         heading: 'How Agents Work (The Loop)',
-        body: 'Agents think in a loop:\n1. **Think:** "To book a flight, I first need to find the price."\n2. **Act:** *Opens Google Flights*\n3. **Observe:** "Okay, the price is $300."\n4. **Think:** "Now I need to ask the user if $300 is okay."\n\nIt keeps going until the job is done.'
+        body: 'Agents don\'t just answer once. They think in a **Loop**:\n\n1. **Think:** "User wants to book a flight. I need to know the price first."\n2. **Act:** *Uses Tool: Google Flights Search*\n3. **Observe:** "Okay, the price is $300."\n4. **Think:** "That is within budget. I will book it now."\n5. **Act:** *Uses Tool: Book Flight*\n\nIt keeps looping until the job is done.'
       },
       {
         type: ContentType.ACTIVITY,
-        heading: 'Activity: Roleplay',
-        body: 'Pretend you are an Agent. Your friend is the "Tool".\n\n1. Goal: Find the weather.\n2. You (Agent): "Command: Open Weather App."\n3. Friend (Tool): *Mimes opening app*\n4. You (Agent): "Command: Read temperature."\n\nThis is exactly how AI software works.'
+        heading: 'Activity: The "Human Agent" Game',
+        body: 'Grab a friend and roleplay to understand the logic.\n\n**You (The Agent):** You are blindfolded. You can only speak commands.\n**Friend (The Tool):** They can look at the phone.\n\n**Goal:** Find the weather in London.\n1. Agent: "Tool, open Browser."\n2. Tool: "Browser open."\n3. Agent: "Tool, search weather London."\n4. Tool: "It says 15 degrees and rainy."\n5. Agent: "Okay, tell the user to bring an umbrella."\n\nThis back-and-forth is exactly how AI software works internally.'
       }
     ],
     quizQuestions: [
@@ -385,22 +385,22 @@ export const COURSE_CONTENT: WeekModule[] = [
     id: 'week-10',
     weekRange: 'Week 10',
     title: 'The Future: You + AI',
-    description: 'Will AI take your job? Probably not. But a human using AI might.',
+    description: 'Will AI take your job? Probably not. But a human using AI might take the job of a human who doesn\'t.',
     content: [
       {
         type: ContentType.TEXT,
         heading: 'The Centaur Model',
-        body: 'In Chess, the best player in the world isn\'t a Human. It isn\'t a Computer. \nIt is a **Human + Computer** working together. They call this a "Centaur".\n\nDon\'t try to beat the AI. Try to work WITH it. Let it do the boring stuff (data entry, emails) so you can do the creative stuff (strategy, empathy).'
+        body: 'In competitive Chess, the best player in the world isn\'t a Human. It isn\'t a Computer. \nIt is a **Human + Computer** working together. They call this a "Centaur".\n\nThe Computer does the brute-force calculation (millions of moves per second). The Human does the long-term strategy and intuition.\n\n**Career Advice:** Don\'t try to beat the AI at being a robot. Try to work WITH it. Let it do the boring stuff (data entry, emails) so you can do the creative stuff (strategy, empathy).'
       },
       {
         type: ContentType.TEXT,
         heading: 'Automation vs. Augmentation',
-        body: '- **Automation:** The Robot does the work *for* you. (e.g., A factory robot).\n- **Augmentation:** The Robot helps you do the work *better*. (e.g., An Iron Man suit).\n\nAim for Augmentation. Be Iron Man.'
+        body: '- **Automation:** The Robot does the work *for* you. (e.g., A factory robot welding a car).\n- **Augmentation:** The Robot helps you do the work *better*. (e.g., An Iron Man suit).\n\nAim for Augmentation. Be the pilot of the suit.'
       },
       {
         type: ContentType.ACTIVITY,
-        heading: 'Activity: Career Map',
-        body: 'List 3 things you want to do in your career.\n1. Which parts are repetitive? (Give those to AI)\n2. Which parts require human connection? (Keep those for yourself)\n\nFocus your skills on the Human parts.'
+        heading: 'Activity: Your Career Map',
+        body: 'Grab a piece of paper. List 3 things you want to do in your future career.\n\n1. **The Robot Tasks:** Which parts are repetitive, boring, or math-heavy? (Plan to give these to AI).\n2. **The Human Tasks:** Which parts require empathy, connection, or complex judgment? (Focus your learning here).\n\nIf you want to be a doctor, let AI analyze the X-Rays, so you can focus on talking to the patient.'
       }
     ],
     quizQuestions: [

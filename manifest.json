@@ -1,0 +1,19 @@
+
+{
+  "name": "Management Career Institute AI",
+  "short_name": "MCI AI",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0B1120",
+  "theme_color": "#1e3a8a",
+  "description": "Official AI Certification by Management Career Institute. Learn Generative AI, Gemini 2.5, and Veo.",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

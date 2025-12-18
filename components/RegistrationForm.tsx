@@ -4,7 +4,7 @@ import {
   School, User, Mail, Loader2, ShieldCheck, 
   Sparkles, Brain, Zap, Globe, Phone, 
   Award, ArrowRight, Video, Rocket, Star, CheckCircle2,
-  TrendingUp, Users, Target
+  TrendingUp, Users, Target, Share2, Copy
 } from 'lucide-react';
 import { MCILogo } from './MCILogo';
 import { dbService } from '../services/db';
@@ -15,6 +15,7 @@ interface RegistrationFormProps {
 }
 
 const ADMIN_EMAIL = 'mcimarcommteam@gmail.com';
+const OFFICIAL_PRODUCTION_URL = 'https://ai-foundation-course.web.app';
 
 export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onRegistrationComplete }) => {
   const [isLoginMode, setIsLoginMode] = useState(false);
@@ -29,9 +30,36 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onRegistrati
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [isAdminMode, setIsAdminMode] = useState(false);
+  const [showCopied, setShowCopied] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleShare = async () => {
+    // Determine the most "Authentic" URL to share
+    const currentUrl = window.location.origin;
+    const shareUrl = currentUrl.includes('web.app') || currentUrl.includes('localhost') || currentUrl.includes('idx.google.com') 
+        ? OFFICIAL_PRODUCTION_URL 
+        : currentUrl;
+
+    const shareData = {
+      title: 'MCI | AI Foundations Certification',
+      text: 'Join me in mastering Generative AI at Management Career Institute!',
+      url: shareUrl
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(shareData.url);
+        setShowCopied(true);
+        setTimeout(() => setShowCopied(false), 2000);
+      }
+    } catch (err) {
+      console.error('Share failed', err);
+    }
   };
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -110,17 +138,22 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onRegistrati
       {/* Navbar / Logo Area */}
       <nav className="w-full max-w-7xl px-6 py-8 flex justify-between items-center z-10">
          <div className="bg-white/5 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10 shadow-lg">
-             <MCILogo className="h-10 w-auto" />
+             <MCILogo className="h-10 w-auto" variant="light" />
          </div>
-         <div className="hidden md:flex items-center gap-6 text-sm font-medium">
-             <div className="flex items-center gap-2 text-yellow-400">
+         <div className="flex items-center gap-6 text-sm font-medium">
+             <div className="hidden md:flex items-center gap-2 text-yellow-400">
                  <Star size={16} fill="currentColor" />
                  <span>4.9/5 Average Rating</span>
              </div>
-             <div className="flex items-center gap-2 text-green-400">
-                 <Users size={16} />
-                 <span>15,000+ Students Enrolled</span>
-             </div>
+             
+             {/* Share Button (Authentic Link) */}
+             <button 
+                onClick={handleShare}
+                className="flex items-center gap-2 px-4 py-2 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 rounded-full text-indigo-300 transition-all hover:text-white group"
+             >
+                 {showCopied ? <CheckCircle2 size={16} /> : <Share2 size={16} />}
+                 <span>{showCopied ? 'Link Copied' : 'Share App'}</span>
+             </button>
          </div>
       </nav>
 

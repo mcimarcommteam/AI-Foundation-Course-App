@@ -7,7 +7,7 @@ import { RegistrationForm } from './components/RegistrationForm';
 import { AdminDashboard } from './components/AdminDashboard';
 import { Certificate } from './components/Certificate';
 import { COURSE_CONTENT } from './constants';
-import { PartyPopper, ShieldAlert, Menu } from 'lucide-react';
+import { PartyPopper, ShieldAlert, Menu, LogOut } from 'lucide-react';
 import { dbService } from './services/db';
 import { MCILogo } from './components/MCILogo';
 
@@ -33,20 +33,16 @@ const App: React.FC = () => {
 
   // --- 1. INITIALIZATION & AUTH ---
   useEffect(() => {
-    // Check if there is an active session in local storage (This remains local for session management)
     const activeUserEmail = localStorage.getItem('ai_course_active_user');
-    
     if (activeUserEmail) {
         loadUserData(activeUserEmail);
     } else {
-        // No active user found
         setIsCheckingAuth(false);
     }
   }, []);
 
   // --- 2. DATA LOADING LOGIC ---
   const loadUserData = async (email: string) => {
-      // Admins do not have a record in DB generally, manual hydration
       if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
           setUserEmail(email);
           setStudentProfile({
@@ -58,43 +54,30 @@ const App: React.FC = () => {
           setCompletedModules(new Set());
           setCompletedSimulations(new Set());
           setModuleScores({});
-          
-          // Auto-redirect to Admin Dashboard
           setActiveTab('admin');
           setIsCheckingAuth(false);
           return;
       }
 
-      // Use DB Service to fetch user
       const userData = await dbService.getUser(email);
-
       if (userData) {
-          // Hydrate State
           setUserEmail(email);
           setStudentProfile(userData.profile);
-          
           const loadedModules = new Set<string>(userData.progress?.completedModules || []);
           const loadedSims = new Set<string>(userData.progress?.completedSimulations || []);
-          const loadedScores = userData.progress?.moduleScores || {};
-          const loadedCertStatus = userData.progress?.certificateDownloaded || false;
-          const loadedFeedback = userData.progress?.adminFeedback || '';
-          
           setCompletedModules(loadedModules);
           setCompletedSimulations(loadedSims);
-          setModuleScores(loadedScores);
-          setCertificateDownloaded(loadedCertStatus);
-          setAdminFeedback(loadedFeedback);
+          setModuleScores(userData.progress?.moduleScores || {});
+          setCertificateDownloaded(userData.progress?.certificateDownloaded || false);
+          setAdminFeedback(userData.progress?.adminFeedback || '');
 
-          // Smart Navigation: Find first incomplete module
           const firstIncomplete = COURSE_CONTENT.find(m => !loadedModules.has(m.id));
           if (firstIncomplete) {
               setCurrentModuleId(firstIncomplete.id);
           } else {
-              // If all done, go to last
               setCurrentModuleId(COURSE_CONTENT[COURSE_CONTENT.length - 1].id);
           }
       } else {
-          // Session exists locally but not in DB (e.g. data wipe or new device with old cookies)
           localStorage.removeItem('ai_course_active_user');
           setUserEmail(null);
       }
@@ -102,12 +85,8 @@ const App: React.FC = () => {
   };
 
   // --- 3. DATA SAVING LOGIC ---
-  // Whenever progress changes, update the DB (Online or Offline)
   useEffect(() => {
-      if (!userEmail) return;
-      if (userEmail.toLowerCase() === ADMIN_EMAIL.toLowerCase()) return; 
-
-      // Debounce slightly to prevent too many writes? No, for now direct write is safer for data integrity.
+      if (!userEmail || userEmail.toLowerCase() === ADMIN_EMAIL.toLowerCase()) return; 
       const progressData = {
           completedModules: Array.from(completedModules),
           completedSimulations: Array.from(completedSimulations),
@@ -115,32 +94,42 @@ const App: React.FC = () => {
           certificateDownloaded: certificateDownloaded,
           adminFeedback: adminFeedback 
       };
-      
       dbService.updateProgress(userEmail, progressData);
-
   }, [completedModules, completedSimulations, moduleScores, certificateDownloaded, adminFeedback, userEmail]);
-
-  // --- 4. EVENT HANDLERS ---
 
   const handleRegistrationComplete = (email: string) => {
     loadUserData(email);
   };
 
+  /**
+   * FIX: Robust State-Based Logout
+   * This clears all sensitive data and resets the React state tree 
+   * to bring the user back to the Landing Page (RegistrationForm) immediately.
+   */
   const handleLogout = () => {
+    // Clear Session
     localStorage.removeItem('ai_course_active_user');
+    
+    // Reset App State (Soft Reset)
     setUserEmail(null);
     setStudentProfile(null);
+    setIsMobileMenuOpen(false);
+    
+    // Clean up course-specific states to ensure next login is fresh
     setCompletedModules(new Set());
     setCompletedSimulations(new Set());
     setModuleScores({});
     setCertificateDownloaded(false);
+    setAdminFeedback('');
     setActiveTab('course');
-    window.location.reload();
+    setCurrentModuleId(COURSE_CONTENT[0].id);
+
+    // Scroll to top
+    window.scrollTo(0, 0);
   };
 
   const currentModule = COURSE_CONTENT.find(m => m.id === currentModuleId) || COURSE_CONTENT[0];
   const currentModuleIndex = COURSE_CONTENT.findIndex(m => m.id === currentModuleId);
-  
   const hasNextModule = currentModuleIndex < COURSE_CONTENT.length - 1;
   const hasPrevModule = currentModuleIndex > 0;
 
@@ -159,20 +148,15 @@ const App: React.FC = () => {
   };
 
   const handleModuleComplete = (score: number) => {
-      // Mark as complete and save score
       setCompletedModules(prev => {
           const next = new Set(prev);
           next.add(currentModuleId);
           return next;
       });
-      setModuleScores(prev => ({
-          ...prev,
-          [currentModuleId]: score
-      }));
+      setModuleScores(prev => ({ ...prev, [currentModuleId]: score }));
   };
 
   const toggleModuleCompletion = () => {
-      // Manual override for dev/testing
        setCompletedModules(prev => {
           const next = new Set(prev);
           if (next.has(currentModuleId)) next.delete(currentModuleId);
@@ -189,9 +173,7 @@ const App: React.FC = () => {
     });
   };
 
-  const handleCertificateDownload = () => {
-      setCertificateDownloaded(true);
-  }
+  const handleCertificateDownload = () => setCertificateDownloaded(true);
 
   const progressPercentage = useMemo(() => {
     if (COURSE_CONTENT.length === 0) return 0;
@@ -200,13 +182,17 @@ const App: React.FC = () => {
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
-  // --- 5. RENDER ---
-
   if (isCheckingAuth) {
-      return <div className="h-screen bg-slate-50 flex items-center justify-center text-[#1e3a8a]">Loading your progress...</div>;
+      return (
+        <div className="h-screen bg-[#1e3a8a] flex flex-col items-center justify-center text-white gap-4">
+          <MCILogo className="h-20 w-auto mb-4 animate-pulse" variant="light" />
+          <div className="flex items-center gap-2 font-bold tracking-widest text-xs uppercase opacity-75">
+            <LogOut size={16} className="animate-spin" /> Initializing MCI AI Engine...
+          </div>
+        </div>
+      );
   }
 
-  // Gate the content behind registration
   if (!userEmail) {
       return <RegistrationForm onRegistrationComplete={handleRegistrationComplete} />;
   }
@@ -216,10 +202,19 @@ const App: React.FC = () => {
       
       {/* Mobile Header */}
       <div className="md:hidden bg-[#1e3a8a] text-white p-4 flex items-center justify-between shrink-0 shadow-md z-30 relative">
-         <MCILogo className="h-8 w-auto" />
-         <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 hover:bg-white/10 rounded-lg">
-             <Menu size={24} />
-         </button>
+         <MCILogo className="h-8 w-auto" variant="light" />
+         <div className="flex items-center gap-2">
+             <button 
+                onClick={handleLogout} 
+                className="p-2 hover:bg-red-500/20 rounded-lg text-red-200 transition-colors" 
+                title="Sign Out to Landing Page"
+              >
+                 <LogOut size={20} />
+             </button>
+             <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 hover:bg-white/10 rounded-lg">
+                 <Menu size={24} />
+             </button>
+         </div>
       </div>
 
       <Sidebar 
@@ -236,11 +231,7 @@ const App: React.FC = () => {
         onClose={closeMobileMenu}
       />
       
-      {/* Main Content Area */}
-      {/* Adjusted margin: md:ml-64 on desktop, no margin on mobile */}
       <main className="md:ml-64 flex-1 h-full overflow-y-auto w-full relative" id="main-scroll-container">
-        
-        {/* Sticky Header for Certificate Access */}
         {progressPercentage === 100 && activeTab === 'course' && (
              <div className="sticky top-0 z-20 bg-[#1e3a8a] text-white px-4 md:px-8 py-3 shadow-md flex justify-between items-center animate-in slide-in-from-top border-b border-blue-900">
                 <div className="flex items-center gap-2 font-bold text-amber-400 text-sm md:text-base">
@@ -257,7 +248,6 @@ const App: React.FC = () => {
         )}
 
         <div className="p-4 md:p-8">
-            {/* Completion Banner */}
             {progressPercentage === 100 && activeTab === 'course' && (
               <div id="certificate-section" className="mb-12 bg-gradient-to-r from-[#1e3a8a] to-blue-900 rounded-2xl p-6 md:p-8 text-white shadow-xl border border-blue-800 relative overflow-hidden animate-in fade-in slide-in-from-top-4">
                  <div className="absolute top-0 right-0 -mt-10 -mr-10 bg-amber-400 w-40 h-40 rounded-full blur-3xl opacity-20 animate-pulse"></div>
@@ -267,7 +257,7 @@ const App: React.FC = () => {
                     </div>
                     <h2 className="text-2xl md:text-3xl font-bold mb-2">Congratulations, {studentProfile?.fullName || 'Student'}!</h2>
                     <p className="text-blue-200 text-base md:text-lg mb-8 max-w-2xl mx-auto">
-                      You have successfully completed the AI Foundations Course. You've mastered everything from Machine Learning to Ethics. We are proud of you!
+                      You have successfully completed the AI Foundations Course.
                     </p>
                     
                     {adminFeedback && (
@@ -278,16 +268,13 @@ const App: React.FC = () => {
                     )}
 
                     <div className="bg-white/5 rounded-xl p-4 md:p-8 backdrop-blur-sm border border-white/10 max-w-3xl mx-auto overflow-x-auto">
-                        <h3 className="text-xl font-semibold mb-6 text-amber-300">Your Official Certificate</h3>
-                        <div className="min-w-[600px]">
-                            <Certificate 
-                                studentName={studentProfile?.fullName || 'Student'}
-                                courseName="AI Fundamental Course"
-                                completionDate={new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                                score={progressPercentage}
-                                onDownload={handleCertificateDownload}
-                            />
-                        </div>
+                        <Certificate 
+                            studentName={studentProfile?.fullName || 'Student'}
+                            courseName="AI Fundamental Course"
+                            completionDate={new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                            score={progressPercentage}
+                            onDownload={handleCertificateDownload}
+                        />
                     </div>
                  </div>
               </div>
@@ -321,14 +308,7 @@ const App: React.FC = () => {
                         <ShieldAlert size={64} className="text-red-600" />
                     </div>
                     <h2 className="text-3xl font-bold text-[#1e3a8a] mb-4">Access Restricted</h2>
-                    <p className="text-slate-600 max-w-md text-lg leading-relaxed">
-                        This dashboard is strictly reserved for MCI Administrators.<br/>
-                        Your account <span className="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded text-slate-800">{userEmail}</span> does not have the required permissions.
-                    </p>
-                    <button 
-                        onClick={() => setActiveTab('course')}
-                        className="mt-8 px-6 py-2 bg-[#1e3a8a] text-white rounded-lg font-bold hover:bg-blue-800 transition-colors shadow-lg"
-                    >
+                    <button onClick={() => setActiveTab('course')} className="mt-8 px-6 py-2 bg-[#1e3a8a] text-white rounded-lg font-bold">
                         Return to Course
                     </button>
                   </div>

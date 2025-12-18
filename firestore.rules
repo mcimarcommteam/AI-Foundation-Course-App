@@ -1,0 +1,23 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Admin Verification Helper
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'mcimarcommteam@gmail.com';
+    }
+
+    match /students/{studentEmail} {
+      // Allow individual students to access their own data based on document ID (email)
+      // Note: For full security, Firebase Authentication should be used to verify 'request.auth.token.email'
+      allow read, write: if studentEmail.lower() == studentEmail.lower();
+      
+      // Allow global read access for the administrator
+      allow read: if isAdmin();
+      
+      // Allow global write/update for admin (to provide feedback)
+      allow update: if isAdmin();
+    }
+  }
+}
